@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map Based Questions – Class 12 Political Science</title>
+
+  <!-- Modern Google Font (optional, needs internet) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #1976d2;
+      --primary-dark: #0f51a4;
+      --accent: #ffb300;
+      --bg: #f3f6fb;
+      --card-bg: #ffffff;
+      --text-main: #1f2933;
+      --text-muted: #6b7280;
+      --border-soft: #d1d5db;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      background: radial-gradient(circle at top left, #e3f2fd 0, #f3f6fb 40%, #e8eaf6 100%);
+      color: var(--text-main);
+    }
+
+    .page-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    /* ======= HEADER ======= */
+    .page-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      margin: 0;
+      color: #0f172a;
+      letter-spacing: 0.03em;
+    }
+
+    .page-subtitle {
+      margin: 6px 0 10px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .meta-line {
+      margin: 4px 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .badge-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(25, 118, 210, 0.08);
+      color: var(--primary-dark);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ======= CARD LAYOUT ======= */
+    .card {
+      background: var(--card-bg);
+      padding: 18px 20px 20px;
+      margin: 18px auto;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #111827;
+    }
+
+    .q-number-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .card p {
+      margin: 6px 0 10px;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .info-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* ======= MAP IMAGE STYLE (OUTLINE) ======= */
+    .map-image {
+      display: block;
+      margin: 12px auto 10px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 3px solid rgba(15, 23, 42, 0.5); /* visible outline */
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+      background-color: #ffffff;
+    }
+
+    /* ======= TABLE STYLE ======= */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    th, td {
+      border: 1px solid var(--border-soft);
+      padding: 7px 8px;
+      text-align: center;
+    }
+
+    th {
+      background: linear-gradient(135deg, #e3f2fd, #e0e7ff);
+      font-weight: 600;
+      color: #111827;
+    }
+
+    tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    tr:nth-child(odd) td {
+      background: #ffffff;
+    }
+
+    /* ======= LISTS ======= */
+    ol {
+      margin: 8px 0 4px 20px;
+      padding-left: 10px;
+      font-size: 0.95rem;
+    }
+
+    ol li {
+      margin: 2px 0;
+    }
+
+    /* ======= ANSWER TOGGLE / BUTTONS ======= */
+    .answer {
+      display: none;
+      margin-top: 12px;
+      border-top: 1px dashed #d1d5db;
+      padding-top: 10px;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    button {
+      padding: 7px 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px rgba(25, 118, 210, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, var(--primary-dark), #0b3c7d);
+      box-shadow: 0 10px 24px rgba(25, 118, 210, 0.45);
+      transform: translateY(-0.5px);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.3);
+    }
+
+    .btn-icon {
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-2px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ======= RESPONSIVE ======= */
+    @media (max-width: 640px) {
+      .card {
+        padding: 14px 12px 16px;
+        margin: 12px auto;
+      }
+
+      .page-title {
+        font-size: 1.5rem;
+      }
+
+      .card h2 {
+        font-size: 1.1rem;
+      }
+
+      table {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+
+  <script>
+    function toggleAns(id) {
+      const box = document.getElementById(id);
+      const btn = document.getElementById(id + '-btn');
+      if (!box || !btn) return;
+
+      if (box.style.display === 'none' || box.style.display === '') {
+        box.style.display = 'block';
+        btn.textContent = 'Hide answer';
+      } else {
+        box.style.display = 'none';
+        btn.textContent = 'Show answer';
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="page-container">
+
+    <!-- ============== HEADER ============== -->
+    <header class="page-header">
+      <h1 class="page-title">Map Based Questions – Class 12 Political Science</h1>
+      <p class="page-subtitle">Indian Political Maps • States • Union Territories • Important Leaders & Events</p>
+      <p class="meta-line">Prepared by: <strong>[Your Name]</strong></p>
+      <p class="meta-line">Class 12 – Political Science</p>
+      <div class="badge-strip">
+        <span class="badge-dot"></span>
+        <span>Tip: First study the full India map below, then try each question.</span>
+      </div>
+    </header>
+
+    <!-- ============= LEARNING MAP PAGE ============= -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">★</span>
+        India Political Map – All States &amp; Union Territories
+      </h2>
+      <p>
+        Use this map to learn and revise the locations of all Indian States and Union Territories
+        before attempting the questions below.
+      </p>
+      <p class="info-text">
+        (Teacher / students can zoom the image in the browser for detailed study.)
+      </p>
+
+      <!-- Put your full India map image in the same folder and use its filename here -->
+      <img src="india-map.png"
+           alt="Political map of India with all states and union territories labeled"
+           class="map-image">
+    </section>
+    <!-- =========== END LEARNING MAP PAGE =========== -->
+
+
+    <!-- ====================== QUESTION 1 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">1</span>
+        Question 1
+      </h2>
+
+      <p>
+        On the given political outline map of <strong>India</strong>, four States have been marked as
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>. Identify these
+        States on the basis of the information given below and write their correct names along with the
+        respective serial number of the information used and the concerned alphabets given in the map
+        as per the following format:
+      </p>
+
+      <img src="q1.jpeg"
+           alt="Political outline map of India with A, B, C and D marked"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>Serial number of the information used</th>
+          <th>Concerned alphabet in the map</th>
+          <th>Name of the State</th>
+        </tr>
+        <tr><td>(i)</td><td></td><td></td></tr>
+        <tr><td>(ii)</td><td></td><td></td></tr>
+        <tr><td>(iii)</td><td></td><td></td></tr>
+        <tr><td>(iv)</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The State where Bahujan Samaj Party formed its first government.</li>
+        <li>The State to which K. Kamaraj belonged.</li>
+        <li>The latest Union Territory of the Indian Union.</li>
+        <li>The State from where Bharatiya Janata Party began its Rath Yatra.</li>
+      </ol>
+
+      <button type="button" id="q1-ans-btn" onclick="toggleAns('q1-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q1-ans" class="answer">
+        <h3>Answer – Question 1</h3>
+        <table>
+          <tr>
+            <th>Serial number of the information used</th>
+            <th>Concerned alphabet in the map</th>
+            <th>Name of the State / Union Territory</th>
+          </tr>
+          <tr><td>(i)</td><td>B</td><td>Uttar Pradesh</td></tr>
+          <tr><td>(ii)</td><td>C</td><td>Tamil Nadu</td></tr>
+          <tr><td>(iii)</td><td>D</td><td>Ladakh</td></tr>
+          <tr><td>(iv)</td><td>A</td><td>Gujarat</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 1 ==================== -->
+
+
+    <!-- ====================== QUESTION 2 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">2</span>
+        Question 2
+      </h2>
+
+      <p>
+        In the given political outline map of <strong>India</strong>, four states have been marked as
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>. Identify these
+        states on the basis of the information given below and write their correct names in your Answer Book
+        along with the respective serial number of the information used and the concerned alphabet as per
+        the format that follows:
+      </p>
+
+      <img src="q2.jpeg"
+           alt="Political outline map of India with A, B, C and D marked"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>S. No. of the Information used</th>
+          <th>Concerned Alphabet</th>
+          <th>Name of the State</th>
+        </tr>
+        <tr><td>(i)</td><td></td><td></td></tr>
+        <tr><td>(ii)</td><td></td><td></td></tr>
+        <tr><td>(iii)</td><td></td><td></td></tr>
+        <tr><td>(iv)</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The State which was not under the rule of the Congress Party in 1952.</li>
+        <li>The State where the Congress Party could not win majority in 1957.</li>
+        <li>The State from where K. Kamaraj, a veteran leader of the Congress Party, lost election in 1967.</li>
+        <li>The State from where the phrase ‘Aaya Ram, Gaya Ram’ originated.</li>
+      </ol>
+
+      <button type="button" id="q2-ans-btn" onclick="toggleAns('q2-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q2-ans" class="answer">
+        <h3>Answer – Question 2</h3>
+        <table>
+          <tr>
+            <th>S. No. of the Information used</th>
+            <th>Concerned Alphabet</th>
+            <th>Name of the State / Union Territory</th>
+          </tr>
+          <tr><td>(i)</td><td>C</td><td>Jammu and Kashmir</td></tr>
+          <tr><td>(ii)</td><td>D</td><td>Kerala</td></tr>
+          <tr><td>(iii)</td><td>B</td><td>Tamil Nadu</td></tr>
+          <tr><td>(iv)</td><td>A</td><td>Haryana</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 2 ==================== -->
+
+
+    <!-- ====================== QUESTION 3 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">3</span>
+        Question 3
+      </h2>
+
+      <p>
+        In the given political outline map of <strong>India</strong>, four States have been marked as
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>. Identify these
+        States on the basis of the information given below and write their correct names in your answer‑book
+        along with the respective serial number of the information used and the concerned alphabets given in
+        the map as per the following format:
+      </p>
+
+      <img src="q3.jpeg"
+           alt="Outline political map of India with A, B, C and D marked"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>Serial number of the information used</th>
+          <th>Concerned alphabet in the map</th>
+          <th>Name of the State</th>
+        </tr>
+        <tr><td>(i)</td><td></td><td></td></tr>
+        <tr><td>(ii)</td><td></td><td></td></tr>
+        <tr><td>(iii)</td><td></td><td></td></tr>
+        <tr><td>(iv)</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The State to which B. P. Mandal, the Chairman of Mandal Commission, belonged.</li>
+        <li>The State where Somnath Temple is situated.</li>
+        <li>The State which was most concerned about the ethnic problems in Sri Lanka.</li>
+        <li>The State where Bahujan Samaj Party formed the government.</li>
+      </ol>
+
+      <button type="button" id="q3-ans-btn" onclick="toggleAns('q3-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q3-ans" class="answer">
+        <h3>Answer – Question 3</h3>
+        <table>
+          <tr>
+            <th>Serial number of the information used</th>
+            <th>Concerned alphabet in the map</th>
+            <th>Name of the State / Union Territory</th>
+          </tr>
+          <tr><td>(i)</td><td>C</td><td>Bihar</td></tr>
+          <tr><td>(ii)</td><td>A</td><td>Gujarat</td></tr>
+          <tr><td>(iii)</td><td>D</td><td>Tamil Nadu</td></tr>
+          <tr><td>(iv)</td><td>B</td><td>Uttar Pradesh</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 3 ==================== -->
+
+
+    <!-- ====================== QUESTION 4 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">4</span>
+        Question 4
+      </h2>
+
+      <p>
+        In the given outline political map of <strong>India</strong>, four states have been marked as
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>. With the help of
+        the information given below, identify them and write their correct names in your answer‑book along
+        with the serial number of the information used and the related alphabet in the map as per the format
+        given below:
+      </p>
+
+      <img src="q4.jpeg"
+           alt="Political outline map of India with A, B, C and D marked"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>S. No. of the information used</th>
+          <th>Related alphabet given in the Map</th>
+          <th>Name of the State</th>
+        </tr>
+        <tr><td>(i)</td><td></td><td></td></tr>
+        <tr><td>(ii)</td><td></td><td></td></tr>
+        <tr><td>(iii)</td><td></td><td></td></tr>
+        <tr><td>(iv)</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The State to which Jai Prakash Narain belonged.</li>
+        <li>The State where Indian National Congress won most of the Lok Sabha seats in 1977 elections.</li>
+        <li>The State from where Raj Narain contested the Lok Sabha seat against Indira Gandhi in 1977 election.</li>
+        <li>The State where Janata Party won all the Lok Sabha seats in 1977 election.</li>
+      </ol>
+
+      <button type="button" id="q4-ans-btn" onclick="toggleAns('q4-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q4-ans" class="answer">
+        <h3>Answer – Question 4</h3>
+        <table>
+          <tr>
+            <th>S. No. of the information used</th>
+            <th>Related alphabet given in the Map</th>
+            <th>Name of the State / Union Territory</th>
+          </tr>
+          <tr><td>(i)</td><td>B</td><td>Bihar</td></tr>
+          <tr><td>(ii)</td><td>D</td><td>Andhra Pradesh</td></tr>
+          <tr><td>(iii)</td><td>A</td><td>Uttar Pradesh</td></tr>
+          <tr><td>(iv)</td><td>C</td><td>Haryana</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 4 ==================== -->
+
+
+    <!-- ====================== QUESTION 5 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">5</span>
+        Question 5
+      </h2>
+
+      <p>
+        In the given political outline map of <strong>India</strong>, four States have been marked as
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>. Identify these
+        States on the basis of the information given below and write their correct names in your
+        answer‑book along with the respective serial number of the information used and the concerned
+        alphabets given in the map as per the following format:
+      </p>
+
+      <img src="q5.jpeg"
+           alt="Outline political map of India with A, B, C and D marked"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>Serial number of the information used</th>
+          <th>Concerned alphabet in the map</th>
+          <th>Name of the State</th>
+        </tr>
+        <tr><td>(i)</td><td></td><td></td></tr>
+        <tr><td>(ii)</td><td></td><td></td></tr>
+        <tr><td>(iii)</td><td></td><td></td></tr>
+        <tr><td>(iv)</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The State with the largest number of seats in its Legislative Assembly.</li>
+        <li>The State to which the first Indian Governor General (1948–1950) belonged.</li>
+        <li>The State where the Congress Party did not get majority in 1967 Assembly polls,
+            but formed a government with the help of others.</li>
+        <li>The region which is a Union Territory now.</li>
+      </ol>
+
+      <button type="button" id="q5-ans-btn" onclick="toggleAns('q5-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q5-ans" class="answer">
+        <h3>Answer – Question 5</h3>
+        <table>
+          <tr>
+            <th>Serial number of the information used</th>
+            <th>Concerned alphabet in the map</th>
+            <th>Name of the State / Union Territory</th>
+          </tr>
+          <tr><td>(i)</td><td>B</td><td>Uttar Pradesh</td></tr>
+          <tr><td>(ii)</td><td>A</td><td>Tamil Nadu</td></tr>
+          <tr><td>(iii)</td><td>D</td><td>Madhya Pradesh</td></tr>
+          <tr><td>(iv)</td><td>C</td><td>Jammu and Kashmir</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 5 ==================== -->
+
+
+    <!-- ====================== QUESTION 6 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">6</span>
+        Question 6
+      </h2>
+
+      <p>
+        In the given political map of <strong>India</strong>, four states have been marked as
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>. Identify these
+        states on the basis of the information given below and write their correct names in your answer book
+        along with the respective serial number of the information used and the concerned alphabet as per the
+        format that follows.
+      </p>
+
+      <img src="q6.jpeg"
+           alt="Political map of India with states marked A, B, C, D"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>Sr. No. of the Information used</th>
+          <th>Concerned alphabet</th>
+          <th>Name of the state</th>
+        </tr>
+        <tr><td>i</td><td></td><td></td></tr>
+        <tr><td>ii</td><td></td><td></td></tr>
+        <tr><td>iii</td><td></td><td></td></tr>
+        <tr><td>iv</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The state to which Raj Kumari Amrit Kaur, Health Minister in Nehru's Cabinet, belonged.</li>
+        <li>The state to which former Congress President, S. Nijalingappa, belonged.</li>
+        <li>The state where Karpoori Thakur was the Chief Minister.</li>
+        <li>The state to which political party DMK belongs.</li>
+      </ol>
+
+      <button type="button" id="q6-ans-btn" onclick="toggleAns('q6-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q6-ans" class="answer">
+        <h3>Answer – Question 6</h3>
+        <table>
+          <tr>
+            <th>Sr. No. of the Information used</th>
+            <th>Concerned alphabet</th>
+            <th>Name of the state</th>
+          </tr>
+          <tr><td>i</td><td>C</td><td>Punjab</td></tr>
+          <tr><td>ii</td><td>D</td><td>Karnataka</td></tr>
+          <tr><td>iii</td><td>A</td><td>Bihar</td></tr>
+          <tr><td>iv</td><td>B</td><td>Tamil Nadu</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 6 ==================== -->
+
+
+    <!-- ====================== QUESTION 7 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">7</span>
+        Question 7
+      </h2>
+
+      <p>
+        In the given political outline map of <strong>India</strong>, four States/Union Territories have
+        been marked as <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>.
+        Identify these States/Union Territories on the basis of the information given below and write their
+        correct names in your answer‑book along with the respective serial number of the information used and
+        the concerned alphabets given in the map as per the following format:
+      </p>
+
+      <img src="q7.jpeg"
+           alt="Outline political map of India with A, B, C and D marked"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>Serial number of the information used</th>
+          <th>Concerned alphabet given in the map</th>
+          <th>Name of the State</th>
+        </tr>
+        <tr><td>(i)</td><td></td><td></td></tr>
+        <tr><td>(ii)</td><td></td><td></td></tr>
+        <tr><td>(iii)</td><td></td><td></td></tr>
+        <tr><td>(iv)</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The State to which the Chairman of the Mandal Commission, B. P. Mandal, belonged.</li>
+        <li>The State where Bahujan Samaj Party formed its first government.</li>
+        <li>The Union Territory which was constituted in 2019.</li>
+        <li>The State from which the political party Dravida Munnetra Kazhagam (DMK) originated.</li>
+      </ol>
+
+      <button type="button" id="q7-ans-btn" onclick="toggleAns('q7-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q7-ans" class="answer">
+        <h3>Answer – Question 7</h3>
+        <table>
+          <tr>
+            <th>Serial number of the information used</th>
+            <th>Concerned alphabet given in the map</th>
+            <th>Name of the State / Union Territory</th>
+          </tr>
+          <tr><td>(i)</td><td>D</td><td>Bihar</td></tr>
+          <tr><td>(ii)</td><td>B</td><td>Uttar Pradesh</td></tr>
+          <tr><td>(iii)</td><td>A</td><td>Ladakh</td></tr>
+          <tr><td>(iv)</td><td>C</td><td>Tamil Nadu</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 7 ==================== -->
+
+
+    <!-- ====================== QUESTION 8 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">8</span>
+        Question 8
+      </h2>
+
+      <p>
+        In the given political outline map of <strong>India</strong>, four states have been marked as
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>. Identify these
+        states on the basis of the information given below and write their correct names in your answer book
+        along with the respective serial number of the information used and the concerned alphabets given in
+        the map as per the format that follows:
+      </p>
+
+      <img src="q8.jpeg"
+           alt="Outline political map of India with A, B, C and D marked"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>Sr. No. of the information used</th>
+          <th>Concerned Alphabet</th>
+          <th>Name of the State</th>
+        </tr>
+        <tr><td>i.</td><td></td><td></td></tr>
+        <tr><td>ii.</td><td></td><td></td></tr>
+        <tr><td>iii.</td><td></td><td></td></tr>
+        <tr><td>iv.</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The state which has been bifurcated into two Union Territories recently.</li>
+        <li>The state where Rajiv Gandhi – Longowal Accord was signed.</li>
+        <li>The state to which Laldenga belonged.</li>
+        <li>The state from where the Dravidian Movement started.</li>
+      </ol>
+
+      <button type="button" id="q8-ans-btn" onclick="toggleAns('q8-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q8-ans" class="answer">
+        <h3>Answer – Question 8</h3>
+        <table>
+          <tr>
+            <th>Sr. No. of the information used</th>
+            <th>Concerned Alphabet</th>
+            <th>Name of the State / Union Territory</th>
+          </tr>
+          <tr><td>i.</td><td>C</td><td>Jammu and Kashmir (former state)</td></tr>
+          <tr><td>ii.</td><td>A</td><td>Punjab</td></tr>
+          <tr><td>iii.</td><td>D</td><td>Mizoram</td></tr>
+          <tr><td>iv.</td><td>B</td><td>Tamil Nadu</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 8 ==================== -->
+
+
+    <!-- ====================== QUESTION 9 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">9</span>
+        Question 9
+      </h2>
+
+      <p>
+        In the given political outline map of <strong>India</strong>, four States have been marked as
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>. Identify these
+        States on the basis of the information given below and write their correct names in your answer‑book
+        along with the respective serial number of the information used and the concerned alphabets given in
+        the map as per the following format:
+      </p>
+
+      <img src="q9.jpeg"
+           alt="Outline political map of India with A, B, C and D marked"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>Serial number of the information used</th>
+          <th>Concerned alphabet in the map</th>
+          <th>Name of the State</th>
+        </tr>
+        <tr><td>(i)</td><td></td><td></td></tr>
+        <tr><td>(ii)</td><td></td><td></td></tr>
+        <tr><td>(iii)</td><td></td><td></td></tr>
+        <tr><td>(iv)</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The State which was called ‘Madras’ at the time of Independence.</li>
+        <li>The State formed on the basis of imbalanced development.</li>
+        <li>The State which was partitioned in 1947.</li>
+        <li>The first State created in 1952.</li>
+      </ol>
+
+      <button type="button" id="q9-ans-btn" onclick="toggleAns('q9-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q9-ans" class="answer">
+        <h3>Answer – Question 9</h3>
+        <table>
+          <tr>
+            <th>Serial number of the information used</th>
+            <th>Concerned alphabet in the map</th>
+            <th>Name of the State / Union Territory</th>
+          </tr>
+          <tr><td>(i)</td><td>B</td><td>Tamil Nadu</td></tr>
+          <tr><td>(ii)</td><td>A</td><td>Chhattisgarh</td></tr>
+          <tr><td>(iii)</td><td>D</td><td>Punjab</td></tr>
+          <tr><td>(iv)</td><td>C</td><td>Andhra Pradesh</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 9 ==================== -->
+
+
+    <!-- ====================== QUESTION 10 ====================== -->
+    <section class="card">
+      <h2>
+        <span class="q-number-pill">10</span>
+        Question 10
+      </h2>
+
+      <p>
+        In the given political outline map of <strong>India</strong>, four States have been marked as
+        <strong>A</strong>, <strong>B</strong>, <strong>C</strong> and <strong>D</strong>. Identify these
+        States on the basis of information given below and write their correct names in your answer‑book along
+        with the respective serial number of the information used and the concerned alphabets given in the map
+        as per the following format:
+      </p>
+
+      <img src="q10.jpeg"
+           alt="Outline political map of India with A, B, C and D marked"
+           class="map-image">
+
+      <table>
+        <tr>
+          <th>Sr. no. of the information used</th>
+          <th>Concerned alphabet in the map</th>
+          <th>Name of the State</th>
+        </tr>
+        <tr><td>(i)</td><td></td><td></td></tr>
+        <tr><td>(ii)</td><td></td><td></td></tr>
+        <tr><td>(iii)</td><td></td><td></td></tr>
+        <tr><td>(iv)</td><td></td><td></td></tr>
+      </table>
+
+      <p>The information is as follows:</p>
+      <ol type="i">
+        <li>The State related to V. V. Giri, the former President of India.</li>
+        <li>The State related to the Congress leader, K. Kamaraj.</li>
+        <li>The State from where the phrase, “Aya Ram, Gaya Ram” originated.</li>
+        <li>The State which faced the most acute food crisis in 1965–1967.</li>
+      </ol>
+
+      <button type="button" id="q10-ans-btn" onclick="toggleAns('q10-ans')">
+        <span class="btn-icon">👁</span> Show answer
+      </button>
+
+      <div id="q10-ans" class="answer">
+        <h3>Answer – Question 10</h3>
+        <table>
+          <tr>
+            <th>Sr. no. of the information used</th>
+            <th>Concerned alphabet in the map</th>
+            <th>Name of the State / Union Territory</th>
+          </tr>
+          <tr><td>(i)</td><td>D</td><td>Odisha</td></tr>
+          <tr><td>(ii)</td><td>C</td><td>Tamil Nadu</td></tr>
+          <tr><td>(iii)</td><td>A</td><td>Haryana</td></tr>
+          <tr><td>(iv)</td><td>B</td><td>Bihar</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- ==================== END QUESTION 10 ==================== -->
+
+  </div>
+</body>
+</html>
